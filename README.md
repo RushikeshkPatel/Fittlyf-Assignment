@@ -1,62 +1,43 @@
-# Global Unemployment Data Analysis
+📊 Global Unemployment Analysis Dashboard (Python & Matplotlib/Seaborn)
 
-This project performs exploratory data analysis (EDA) on global unemployment data from 1991 to 2021. It demonstrates data cleaning, transformation, aggregation, and analysis using Python (`pandas`, `numpy`, `matplotlib`).  
+🔎 Project Overview
+This project presents a Global Unemployment Analysis for the years 1991-2021. The analysis focuses on visualizing trends, identifying countries with high unemployment, and deriving actionable insights. It is designed to help policymakers, researchers, and analysts quickly understand unemployment patterns globally.
 
----
+📂 Dataset
+Source: Sample global unemployment dataset (for analysis purposes)
+Fields Included: Country, Year, Unemployment
 
-## Project Overview
+📈 Key Insights from the Analysis
+- **Top Countries with Highest Unemployment:** Identified based on cumulative unemployment over 30 years
+- **Trends Over Time:** Some countries show consistent decreases, while others have persistent high unemployment
+- **Regional Patterns:** Certain regions show higher unemployment consistently, highlighting economic and social disparities
 
-- **Dataset:** `unemployment_analysis.csv`
-- **Objective:** Analyze trends in unemployment across countries over time, clean the data, handle missing values, and calculate total unemployment by country.
-- **Key Steps:**
-  1. Load dataset
-  2. Clean numeric values
-  3. Handle missing values
-  4. Aggregate total unemployment
-  5. Summarize statistics for selected countries
+Breakdown of Analysis
+1. **Data Cleaning & Preprocessing**
+   - Missing values handled using linear interpolation
+   - Data aggregated by country for trend analysis
+2. **Visualization**
+   - Trends plotted for top 5 countries
+   - Comparison across countries and years to identify patterns
+3. **Summary Statistics**
+   - Total unemployment per country
+   - Yearly averages and growth rates
 
----
+🛠 Tools & Technologies
+- Python → Data analysis, aggregation, and visualization
+- Pandas → Data cleaning and manipulation
+- Matplotlib & Seaborn → Line plots and trend visualization
+- CSV/Excel → Raw dataset preparation and storage
 
-## Python Code
+🚀 Outcomes
+- Cleaned and structured unemployment dataset
+- Identified countries and years with highest unemployment rates
+- Visualized trends to support policy and economic decision-making
+- Generated actionable insights for global unemployment research
 
-```python
-# Import libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 
-# Load dataset
-df = pd.read_csv("unemployment_analysis.csv")
-
-# Preview dataset
-print(df.head())
-
-# Remove 'lacs' from data and convert to float
-df_numeric = df[df.columns[2:33]].replace('lacs', '', regex=True).astype(float)
-
-# Combine cleaned numeric data with country info
-df_clean = df.iloc[:, :2].join(df_numeric)
-
-# Interpolate missing values
-df_clean.interpolate(inplace=True)
-
-# Verify null values
-print(df_clean.isnull().sum())
-
-# Calculate total unemployment per country
-total_unemployment = df_clean.iloc[:, 2:].sum(axis=1).reset_index()
-country_info = df_clean.iloc[:, 0].reset_index()
-unemployment_summary = total_unemployment.merge(country_info)
-unemployment_summary.rename(columns={0: "Unemployed_People"}, inplace=True)
-
-print(unemployment_summary.head())
-
-# Example: descriptive statistics for selected countries
-selected_countries = df_clean[df_clean["Country Name"].isin(["Benin", "Bahrain"])]
-print(selected_countries.describe())
-
-From this analysis, we can conclude:
-1. **Trends Over Time:** Economic and social factors cause variations in unemployment rates across countries.
-2. **Actionable Insights:** Policymakers can focus on regions with high unemployment for targeted interventions.
-3. **Future Work:** Integrating GDP, labor force data, and interactive dashboards could improve analysis and forecasting.
+📄 Conclusion
+- **Trends Over Time:** Unemployment rates vary widely across countries due to economic and social factors
+- **Actionable Insights:** Focused interventions can be designed for regions with high unemployment
+- **Future Work:** Incorporate GDP, labor force participation, and interactive dashboards for predictive modeling
 
